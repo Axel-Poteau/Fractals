@@ -19,7 +19,18 @@ package fr.univartois.butinfo.fractals.complex;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+
+import fr.univartois.butinfo.fractals.complex.points.Complex;
+import fr.univartois.butinfo.fractals.complex.points.IComplex;
+import fr.univartois.butinfo.fractals.figure.FigureDecorator;
+import fr.univartois.butinfo.fractals.figure.formes.FigureComposite;
+import fr.univartois.butinfo.fractals.figure.formes.IFigure;
+import fr.univartois.butinfo.fractals.figure.formes.Rectangle;
+
+import fr.univartois.butinfo.fractals.figure.formes.Circle;
 import org.junit.jupiter.api.Test;
+
+import java.awt.*;
 
 /**
  * La classe IComplexTest permet de tester votre implémentation de l'interface
@@ -41,12 +52,13 @@ class IComplexTest {
      */
     private static IComplex createComplex(double realPart, double imaginaryPart) {
         // TODO Créez ici une instance de votre classe implémentant IComplex.
-        return null;
+        Complex complex = new Complex(realPart,imaginaryPart);
+        return complex;
     }
 
     /**
      * Méthode de test pour
-     * {@link fr.univartois.butinfo.fractals.complex.IComplex#getRealPart()}.
+     * {@link IComplex#getRealPart()}.
      */
     @Test
     void testGetRealPart() {
@@ -65,7 +77,7 @@ class IComplexTest {
 
     /**
      * Méthode de test pour
-     * {@link fr.univartois.butinfo.fractals.complex.IComplex#getImaginaryPart()}.
+     * {@link IComplex#getImaginaryPart()}.
      */
     @Test
     void testGetImaginaryPart() {
@@ -83,7 +95,7 @@ class IComplexTest {
     }
 
     /**
-     * Méthode de test pour {@link fr.univartois.butinfo.fractals.complex.IComplex#abs()}.
+     * Méthode de test pour {@link IComplex#abs()}.
      */
     @Test
     void testAbs() {
@@ -102,7 +114,7 @@ class IComplexTest {
 
     /**
      * Méthode de test pour
-     * {@link fr.univartois.butinfo.fractals.complex.IComplex#negate()}.
+     * {@link IComplex#negate()}.
      */
     @Test
     void testNegate() {
@@ -125,7 +137,7 @@ class IComplexTest {
 
     /**
      * Méthode de test pour
-     * {@link fr.univartois.butinfo.fractals.complex.IComplex#conjugate()}.
+     * {@link IComplex#conjugate()}.
      */
     @Test
     void testConjugate() {
@@ -148,7 +160,7 @@ class IComplexTest {
 
     /**
      * Méthode de test pour
-     * {@link fr.univartois.butinfo.fractals.complex.IComplex#add(fr.univartois.butinfo.fractals.complex.IComplex)}.
+     * {@link IComplex#add(IComplex)}.
      */
     @Test
     void testAdd() {
@@ -169,7 +181,7 @@ class IComplexTest {
 
     /**
      * Méthode de test pour
-     * {@link fr.univartois.butinfo.fractals.complex.IComplex#subtract(fr.univartois.butinfo.fractals.complex.IComplex)}.
+     * {@link IComplex#subtract(IComplex)}.
      */
     @Test
     void testSubtract() {
@@ -190,7 +202,7 @@ class IComplexTest {
 
     /**
      * Méthode de test pour
-     * {@link fr.univartois.butinfo.fractals.complex.IComplex#multiply(double)}.
+     * {@link IComplex#multiply(double)}.
      */
     @Test
     void testMultiplyDouble() {
@@ -209,7 +221,7 @@ class IComplexTest {
 
     /**
      * Méthode de test pour
-     * {@link fr.univartois.butinfo.fractals.complex.IComplex#multiply(fr.univartois.butinfo.fractals.complex.IComplex)}.
+     * {@link IComplex#multiply(IComplex)}.
      */
     @Test
     void testMultiplyIComplex() {
@@ -230,7 +242,7 @@ class IComplexTest {
 
     /**
      * Méthode de test pour
-     * {@link fr.univartois.butinfo.fractals.complex.IComplex#divide(fr.univartois.butinfo.fractals.complex.IComplex)}.
+     * {@link IComplex#divide(IComplex)}.
      */
     @Test
     void testDivide() {
@@ -255,7 +267,7 @@ class IComplexTest {
 
     /**
      * Méthode de test pour
-     * {@link fr.univartois.butinfo.fractals.complex.IComplex#hashCode()}.
+     * {@link IComplex#hashCode()}.
      */
     @Test
     void testHashCode() {
@@ -278,7 +290,7 @@ class IComplexTest {
 
     /**
      * Méthode de test pour
-     * {@link fr.univartois.butinfo.fractals.complex.IComplex#equals(java.lang.Object)}.
+     * {@link IComplex#equals(java.lang.Object)}.
      */
     @Test
     void testEqualsObject() {
@@ -310,7 +322,7 @@ class IComplexTest {
 
     /**
      * Méthode de test pour
-     * {@link fr.univartois.butinfo.fractals.complex.IComplex#toString()}.
+     * {@link IComplex#toString()}.
      */
     @Test
     void testToString() {
@@ -325,6 +337,31 @@ class IComplexTest {
 
         IComplex z = createComplex(2, 2);
         assertEquals("2.0 + 2.0i" , z.toString());
+    }
+    @Test
+    void testFigure(){
+        IComplex complex = new Complex(100,100);
+
+        IFigure rect = new Circle(Color.BLACK,complex,5);
+        IFigure rect2 = new Rectangle(Color.BLUE, complex, 5, 5);
+
+
+
+        String rec = rect.repr();
+        System.out.println(FigureDecorator.translation(rec,complex));
+        rec = FigureDecorator.translation(rec,complex);s
+        System.out.println(FigureDecorator.scale(rec,15));
+
+        FigureComposite listeFigure = new FigureComposite();
+        listeFigure.add(rect);
+        listeFigure.add(rect2);
+        listeFigure.add(rect);
+        System.out.println(listeFigure.repr());
+        listeFigure.remove(rect2);
+        System.out.println(listeFigure.repr());
+        System.out.println(Color.cyan.getRed());
+        System.out.println(Color.cyan.getBlue());
+        System.out.println(Color.cyan.getGreen());
     }
 
 }

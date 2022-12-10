@@ -14,7 +14,7 @@
  * Tous droits réservés.
  */
 
-package fr.univartois.butinfo.fractals.complex;
+package fr.univartois.butinfo.fractals.complex.points;
 
 /**
  * L'interface IComplex définit le contrat à respecter par tout nombre complexe.
